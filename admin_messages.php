@@ -26,7 +26,7 @@
 
   // Show message (if any) once
   if (isset($_SESSION['deleted'])) {
-      echo "<div class='alert alert-danger'>" . $_SESSION['deleted'] . "</div>";
+    echo "<div id='deleted-alert' class='alert alert-danger'>" . $_SESSION['deleted'] . "</div>";
       unset($_SESSION['deleted']);
   }
 
@@ -61,5 +61,18 @@
     </tbody>
   </table>
 </div>
+<script>
+  // Auto-hide any alert (success or error) after 3 seconds
+  document.addEventListener('DOMContentLoaded', function() {
+    var alerts = document.querySelectorAll('.alert');
+    alerts.forEach(function(alert) {
+      setTimeout(function() {
+        alert.style.transition = 'opacity 0.5s ease';
+        alert.style.opacity = '0';
+        setTimeout(function() { if (alert && alert.parentNode) alert.parentNode.removeChild(alert); }, 500);
+      }, 3000);
+    });
+  });
+</script>
 </body>
 </html>
