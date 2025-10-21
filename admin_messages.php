@@ -11,13 +11,23 @@
   <h2 class="mb-4 text-center">Submitted Messages</h2>
 
   <?php
+  session_start();
   $conn = new mysqli('localhost', 'root', '', 'mywebsite_db');
 
   // Handle delete request
   if (isset($_GET['delete'])) {
       $id = intval($_GET['delete']);
       $conn->query("DELETE FROM contact_messages WHERE id = $id");
-      echo "<div class='alert alert-danger'>Message deleted successfully!</div>";
+
+      $_SESSION['deleted'] = "Message deleted successfully!";
+      header("Location: " . $_SERVER['PHP_SELF']); // redirect to clear query string
+      exit();
+  }
+
+  // Show message (if any) once
+  if (isset($_SESSION['deleted'])) {
+      echo "<div class='alert alert-danger'>" . $_SESSION['deleted'] . "</div>";
+      unset($_SESSION['deleted']);
   }
 
   $result = $conn->query("SELECT * FROM contact_messages ORDER BY submitted_at DESC");
@@ -40,7 +50,7 @@
         <td><?= $row['id'] ?></td>
         <td><?= htmlspecialchars($row['name']) ?></td>
         <td><?= htmlspecialchars($row['email']) ?></td>
-        <td><?= htmlspecialchars($row['message']) ?></td>
+        <td><?= nl2br(htmlspecialchars($row['message'])) ?></td>
         <td><?= $row['submitted_at'] ?></td>
         <td>
           <a href="?delete=<?= $row['id'] ?>" class="btn btn-danger btn-sm"
