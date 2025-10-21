@@ -70,7 +70,7 @@
         alert.style.transition = 'opacity 0.5s ease';
         alert.style.opacity = '0';
         setTimeout(function() { if (alert && alert.parentNode) alert.parentNode.removeChild(alert); }, 500);
-      }, 3000);
+      }, 2000);
     });
   });
 </script>
