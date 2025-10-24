@@ -12,6 +12,7 @@
 
   <?php
   session_start();
+  
   $conn = new mysqli('localhost', 'root', '', 'mywebsite_db');
 
   // Handle delete request
@@ -64,7 +65,7 @@
 <script>
   // Auto-hide any alert (success or error) after 3 seconds
   document.addEventListener('DOMContentLoaded', function() {
-    var alerts = document.querySelectorAll('.alert');
+    let alerts = document.querySelectorAll('.alert');
     alerts.forEach(function(alert) {
       setTimeout(function() {
         alert.style.transition = 'opacity 0.5s ease';

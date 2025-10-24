@@ -68,9 +68,9 @@
   </form>
 </div>
 <script>
-  // Auto-hide the success alert after 3 seconds (3000 ms)
+  // Auto-hide the success alert after 3 seconds (2000 ms)
   document.addEventListener('DOMContentLoaded', function() {
-    var success = document.getElementById('success-alert');
+    let success = document.getElementById('success-alert');
     if (success) {
       // Give a short fade-out transition then remove the element
       setTimeout(function() {
