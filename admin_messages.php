@@ -1,3 +1,23 @@
+
+  <?php
+  session_start();
+include __DIR__ . '/db_connect.php';
+  
+// Redirect to login if not logged in
+  if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+    header("Location: admin_login.php");
+    exit();
+}else{
+    header("Location: admin_messages.php");
+}
+
+?>
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +27,17 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
+
 <div class="container mt-5">
   <h2 class="mb-4 text-center">Submitted Messages</h2>
 
-  <?php
-  session_start();
-  
+
+  <p class="text-end mb-3">
+  Logged in as <strong><?= htmlspecialchars($_SESSION['admin_username']); ?></strong> |
+  <a href="logout.php" class="text-danger">Logout</a>
+</p>
+
+<?php
   $conn = new mysqli('localhost', 'root', '', 'mywebsite_db');
 
   // Handle delete request
@@ -63,7 +88,7 @@
   </table>
 </div>
 <script>
-  // Auto-hide any alert (success or error) after 3 seconds
+  // Auto-hide any alert (success or error) after 2 seconds
   document.addEventListener('DOMContentLoaded', function() {
     let alerts = document.querySelectorAll('.alert');
     alerts.forEach(function(alert) {
