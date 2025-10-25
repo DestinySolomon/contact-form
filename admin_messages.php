@@ -7,9 +7,7 @@ include __DIR__ . '/db_connect.php';
   if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header("Location: admin_login.php");
     exit();
-}else{
-    header("Location: admin_messages.php");
-}
+  }
 
 ?>
 

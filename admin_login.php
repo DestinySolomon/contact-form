@@ -21,8 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // ✅ Check password using password_verify
         if (password_verify($password, $user['password_hash'])) {
-            $_SESSION['admin_username'] = $user['username'];
-            header("Location: admin_messages.php");
+      // Mark admin as logged in and store username
+      $_SESSION['admin_logged_in'] = true;
+      $_SESSION['admin_username'] = $user['username'];
+      header("Location: admin_messages.php");
             exit();
         } else {
             $error = "Invalid username or password.";
